@@ -1,4 +1,5 @@
-require "magus/version"
+require 'magus/version'
+require 'magus/soapv2'
 
 module Magento
   class << self
