@@ -1,0 +1,6 @@
+---
+<% common = "--color --tags ~@wip" %>
+default: --format pretty <%= common %>
+all: --color --format progress
+html: --format html --out features.html <%= common %>
+guard: --format pretty <%= common %>
