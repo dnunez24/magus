@@ -1,5 +1,6 @@
 *.gem
 Gemfile.lock
+features.html
 pkg/*
 tmp/*
 doc/*
