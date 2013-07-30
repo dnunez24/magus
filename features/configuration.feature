@@ -1,5 +1,8 @@
 Feature: Configuration
 
+  Configure the Magento gem using the configure block syntax
+  or configure each option directly.
+
 
   Scenario Outline: Configure directly
     Given a file named "configuration.rb" with:
