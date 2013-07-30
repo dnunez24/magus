@@ -22,7 +22,6 @@ end
 group :test do
   gem 'rspec'
   gem 'cucumber'
-  gem 'gherkin'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'simplecov', :require => false
