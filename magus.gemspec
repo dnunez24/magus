@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{An easy-to-use Ruby wrapper for all the Magento core API types (XML-RPC, SOAP, REST)}
   spec.homepage      = ""
   spec.license       = "MIT"
+  spec.rubyforge_project = "magus"
+  spec.required_ruby_version = ">= 1.9.3"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
