@@ -1,6 +1,6 @@
 # Magus
 
-[![Build Status](https://travis-ci.org/dnunez24/magus.png)](https://travis-ci.org/dnunez24/magus)
+[![Build Status](https://travis-ci.org/dnunez24/magus.png)](https://travis-ci.org/dnunez24/magus) [![Code Climate](https://codeclimate.com/github/dnunez24/magus.png)](https://codeclimate.com/github/dnunez24/magus)
 
 TODO: Write a gem description
 
