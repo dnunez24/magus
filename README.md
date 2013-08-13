@@ -1,5 +1,7 @@
 # Magus
 
+[![Build Status](https://travis-ci.org/dnunez24/magus.png)](https://travis-ci.org/dnunez24/magus)
+
 TODO: Write a gem description
 
 ## Installation
