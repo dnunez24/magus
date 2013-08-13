@@ -13,6 +13,12 @@ module Magus
         raise Magus::SOAPFault
       end
 
+      def logout
+        self.call :end_session, message: {sessionId: @session_id}
+        @session_id = nil
+        self
+      end
+
     private
 
       def get_session_id_from_login_response(response)

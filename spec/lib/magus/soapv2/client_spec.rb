@@ -40,5 +40,34 @@ module Magus::SOAPv2
         end
       end
     end # login
+
+    describe "#logout" do
+      context "when client has a session ID", vcr: {cassette_name: "soapv2/client/logout/with_session_id"} do
+        it "sends a SOAP end_session message with the session ID" do
+          client.login(username, api_key)
+          message = {sessionId: client.session_id}
+          expect(client).to receive(:call).with(:end_session, message: message).and_call_original
+          client.logout
+        end
+
+        it "destroys the stored session ID" do
+          client.login(username, api_key)
+          client.logout
+          expect(client.session_id).to be_nil
+        end
+
+        it "returns the client instance" do
+          client.login(username, api_key)
+          response = client.logout
+          expect(response).to be client
+        end
+      end
+
+      context "when client has no session ID", vcr: {cassette_name: "soapv2/client/logout/with_no_session_id"} do
+        it "logs a message that there is no session ID" do
+          pending
+        end
+      end
+    end
   end # Client
 end # Magus::SOAPv2
