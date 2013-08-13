@@ -8,18 +8,13 @@ def filters
 end
 
 VCR.configure do |config|
-  config.cassette_library_dir = File.expand_path('../../cassettes', __FILE__)
   config.hook_into :webmock
-  config.configure_rspec_metadata!
+  config.cassette_library_dir = File.expand_path('../../cassettes', __FILE__)
   config.default_cassette_options = {
     :record => :once,
     :match_requests_on => [:method, :uri, :body],
     :erb => true
   }
-
-  config.after_http_request(:recordable?) do |request, response|
-    last_response = response
-  end
 
   credentials.each_pair do |api, creds|
     creds.each_pair do |key, value|

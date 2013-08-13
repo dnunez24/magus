@@ -34,4 +34,6 @@ module ApiHelpers
   end
 end
 
-World(ApiHelpers)
+RSpec.configure do |config|
+  config.include ApiHelpers
+end

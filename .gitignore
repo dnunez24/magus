@@ -1,6 +1,7 @@
 *.gem
 Gemfile.lock
-credentials.yml
+config.yml
+filters.yml
 features.html
 pkg/*
 tmp/*

@@ -1,12 +1,6 @@
 require 'magus/version'
-require 'magus/soapv2'
+require 'magus/error'
 
-module Magento
-  class << self
-    attr_accessor :endpoint, :username, :api_key
-  end
-
-  def self.configure
-    yield self if block_given?
-  end
+module Magus
+  autoload :SOAPv2, 'magus/soapv2'
 end

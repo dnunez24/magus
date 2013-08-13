@@ -25,4 +25,5 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'simplecov', :require => false
+  gem 'fuubar'
 end
