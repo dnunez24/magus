@@ -1,4 +1,4 @@
-Given(/^a client object exists$/) do
+Given /^a client object exists$/ do
   options = {
     wsdl: "http://#{hostname}/api/v2_soap?wsdl=1",
     log: false,
@@ -7,7 +7,7 @@ Given(/^a client object exists$/) do
   @client = Magus::SOAPv2::Client.new(options)
 end
 
-When(/^I send a login request with (in)?valid credentials$/) do |invalid|
+When /^I send a login request with (in)?valid credentials$/ do |invalid|
   username = invalid ? "baduser" : v2_soap_creds["username"]
   api_key = invalid ? "badpass" : v2_soap_creds["api_key"]
   cassette_name = invalid ? "invalid_login" : "valid_login"
@@ -20,22 +20,20 @@ When(/^I send a login request with (in)?valid credentials$/) do |invalid|
   end
 end
 
-Given(/^the client is logged in$/) do
+Given /^the client is logged in$/ do
   steps %{
     Given a client object exists
     When I send a login request with valid credentials
   }
 end
 
-Given(/^the client has a session ID$/) do
-  expect(@client.session_id).not_to be_nil
+When /^I try to logout$/ do
+  VCR.use_cassette "v2_soap_client/logout" do
+    @client.logout
+  end
 end
 
-When(/^I send a logout request$/) do
-  @client.logout
-end
-
-Then(/^the client should (not )?have a (.+?)$/) do |negated, attribute|
+Then /^the client (?:has|(?:should|does) (not )?have) a (.+?)$/ do |negated, attribute|
   attribute = attribute.downcase.gsub(" ", "_")
   if negated
     expect(@client.send(attribute.to_sym)).to be_nil
@@ -44,12 +42,17 @@ Then(/^the client should (not )?have a (.+?)$/) do |negated, attribute|
   end
 end
 
-Then(/^I should receive an error message$/) do
-  VCR.use_cassette "v2_soap_client/invalid_login" do
-    expect { @client.login(username="baduser", api_key="badpass") }.to raise_exception Magus::SOAPFault
+Then(/^the client (?:(does not )?sends?) a request to end the session$/) do |negated|
+  message = {sessionId: @client.session_id}
+  if negated
+    expect(@client).not_to receive(:call).with(:end_session, message: message)
+  else
+    expect(@client).to receive(:call).with(:end_session, message: message)
   end
 end
 
-Then(/^the service ends the session$/) do
-  pending # express the regexp above with the code you wish you had
+Then /^I should receive an error message$/ do
+  VCR.use_cassette "v2_soap_client/invalid_login" do
+    expect { @client.login(username="baduser", api_key="badpass") }.to raise_exception Magus::SOAPFault
+  end
 end

@@ -14,8 +14,10 @@ module Magus
       end
 
       def logout
-        self.call :end_session, message: {sessionId: @session_id}
-        @session_id = nil
+        if @session_id
+          self.call :end_session, message: {sessionId: @session_id}
+          @session_id = nil
+        end
         self
       end
 
